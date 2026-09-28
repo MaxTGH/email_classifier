@@ -1,0 +1,14 @@
+[project]
+name = "email-classifier"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "accelerate>=1.15.0",
+    "datasets>=5.0.1",
+    "google-api-python-client>=2.200.0",
+    "google-auth-oauthlib>=1.4.1",
+    "pandas>=3.0.6",
+    "scikit-learn>=1.9.1",
+    "torch>=2.14.0",
+    "transformers>=5.17.0",
+]

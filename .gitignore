@@ -1,0 +1,16 @@
+# Environment and clutter
+.venv/
+__pycache__/
+.DS_Store
+
+# Generated data and models (can contain personal email content)
+data/
+model/
+*.csv
+*.mbox
+Takeout/
+
+# Gmail API secrets: never commit
+credentials.json
+token.json
+client_secret*.json
