@@ -10,7 +10,10 @@ model/
 *.mbox
 Takeout/
 
-# Gmail API secrets: never commit
+# Gmail API secrets: never commit (including backups and env files)
 credentials.json
 token.json
 client_secret*.json
+*.bak
+.env
+.env.*

@@ -3,12 +3,14 @@
 Written as a plain PyTorch loop, not the Hugging Face Trainer, so every step
 is visible: batch -> forward pass -> loss -> backward -> optimizer step.
 
-  python 03_finetune.py              # full run
-  python 03_finetune.py --quick      # small subset, just to check it works
-  python 03_finetune.py --data path/to/emails.csv   # train on a CSV somewhere else
+  python finetune.py              # full run
+  python finetune.py --quick      # small subset, just to check it works
+  python finetune.py --data path/to/emails.csv   # train on a CSV somewhere else
 """
 import argparse
 import time
+
+from pathlib import Path
 
 import pandas as pd
 import torch
@@ -23,9 +25,11 @@ BATCH_SIZE = 8
 EPOCHS = 3
 LR = 5e-5        # small: we are nudging pretrained weights, not learning from scratch
 
+ROOT = Path(__file__).resolve().parent  # files live next to this script
+
 ap = argparse.ArgumentParser()
 ap.add_argument("--quick", action="store_true")
-ap.add_argument("--data", default="data/emails.csv", help="CSV made by prepare_data.py")
+ap.add_argument("--data", default=ROOT / "data" / "emails.csv", help="CSV made by prepare_data.py")
 args = ap.parse_args()
 
 device = "mps" if torch.backends.mps.is_available() else "cuda" if torch.cuda.is_available() else "cpu"
@@ -104,6 +108,6 @@ for epoch in range(EPOCHS):
 
 print(classification_report(gold, preds, labels=range(len(labels)), target_names=labels, digits=3))
 
-model.save_pretrained("model")
-tok.save_pretrained("model")
-print("Saved to ./model; try: python 04_predict.py \"your message here\"")
+model.save_pretrained(ROOT / "model")
+tok.save_pretrained(ROOT / "model")
+print(f"Saved to {ROOT / 'model'}")

@@ -18,7 +18,7 @@ from pathlib import Path
 
 import pandas as pd
 
-OUT = Path("data/emails.csv")
+OUT = Path(__file__).resolve().parent / "data" / "emails.csv"
 MAX_CHARS = 2000  # the model only reads ~256 tokens anyway
 
 # Labelling rules for --mbox (inbox mail only), checked in this order: bank, news, other.
@@ -108,7 +108,7 @@ def label_of(gmail_labels, sender, subject, body):
 
 
 def model_text(sender, subject, body):
-    """The exact text the model sees. 05_gmail_labeler.py uses this too, so
+    """The exact text the model sees. gmail_labeler.py uses this too, so
     live emails are formatted the same way as the training data."""
     return f"From: {sender}\nSubject: {subject}\n\n{body}"[:MAX_CHARS]
 

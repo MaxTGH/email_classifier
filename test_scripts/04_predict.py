@@ -1,14 +1,17 @@
 """Step 4: use your fine-tuned model.
 
-  python 04_predict.py "Flash sale: 40% off all laptops this weekend only"
+  python test_scripts/04_predict.py "Flash sale: 40% off all laptops this weekend only"
 """
 import sys
+from pathlib import Path
 
 import torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
-tok = AutoTokenizer.from_pretrained("model")
-model = AutoModelForSequenceClassification.from_pretrained("model").eval()
+ROOT = Path(__file__).resolve().parent.parent  # project folder
+
+tok = AutoTokenizer.from_pretrained(ROOT / "model")
+model = AutoModelForSequenceClassification.from_pretrained(ROOT / "model").eval()
 
 texts = sys.argv[1:] or ["My knee has been sore since the game, should I see a doctor?"]
 for text in texts:
